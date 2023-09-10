@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Button, Typography } from '@mui/material';
-import useSearchContext from '../contexts/SearchContext/useSearchContext';
 import GiphyList from '../components/GiphyList';
+import useGiphyManager from '../contexts/GiphyManagerContext/useGiphyManager';
 
 const SearchViewFooter = styled.footer`
   display: flex;
@@ -10,14 +10,12 @@ const SearchViewFooter = styled.footer`
 `;
 
 const SearchView = () => {
-  const { searchResult, hasNextPage, fetchNextPage } = useSearchContext();
+  const { searchResult, hasNextPage, fetchNextPage } = useGiphyManager();
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     fetchNextPage();
   };
-
-  console.log('Result', searchResult);
 
   return (
     <>

@@ -4,7 +4,7 @@ import theme from './styles/theme';
 import { CssBaseline } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import MainView from './views/MainView';
-import SearchProvider from './contexts/SearchContext/SearchProvider';
+import GiphyManagerProvider from './contexts/GiphyManagerContext/GiphyManagerProvider';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -14,9 +14,9 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <CssBaseline />
         <BrowserRouter>
-          <SearchProvider>
+          <GiphyManagerProvider>
             <MainView />
-          </SearchProvider>
+          </GiphyManagerProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
