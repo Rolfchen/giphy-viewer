@@ -15,7 +15,6 @@ export interface ISearchGiphyParams extends IUseSearchGiphy {
 const pageSize = parseInt(import.meta.env.VITE_GIPHY_PAGE_SIZE);
 
 const searchGiphy = async ({ pageParam, searchTerm }: ISearchGiphyParams) => {
-  console.log('Starting searching giphy', searchTerm);
   const { offset = 0 } = pageParam || {};
   const endpoint = `${import.meta.env.VITE_GIPHY_URL}/gifs/search`;
   const response = await axios.get<IGiphyTrendingResponse>(endpoint, {
@@ -26,7 +25,6 @@ const searchGiphy = async ({ pageParam, searchTerm }: ISearchGiphyParams) => {
       q: searchTerm,
     },
   });
-  console.log('Response', response);
   return response.data;
 };
 
@@ -47,7 +45,6 @@ const fetchNextPageParam = (lastPage: IGiphyTrendingResponse) => {
  * React query hook to search Giphy API
  */
 const useSearchGiphy = ({ searchTerm = '' }: IUseSearchGiphy) => {
-  console.log('Use search, search term is', searchTerm);
   return useInfiniteQuery({
     queryKey: ['searchGiphy', searchTerm],
     queryFn: ({ pageParam }) => searchGiphy({ pageParam, searchTerm }),

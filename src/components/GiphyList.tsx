@@ -3,11 +3,14 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
-// import FavoriteIcon from '@mui/icons-material/Favourite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from '@emotion/styled';
 import { IGiphyGifObject } from '../types/giphyTypes';
+import useGiphyManager from '../contexts/GiphyManagerContext/useGiphyManager';
 
 export interface IGiphyListProps {
   className?: string;
@@ -36,11 +39,41 @@ const LazyLoadingImage = styled.img`
 `;
 
 const GiphyList = ({ giphyObjects, className }: IGiphyListProps) => {
+  const { favourites, dispatchAddFavourite, dispatchRemoveFavourite } =
+    useGiphyManager();
+
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+  const gridColumnSize = isTablet ? 3 : 4;
+  const gapSize = isTablet ? 8 : 16;
+
   return (
-    <ImageList variant="masonry" cols={4} gap={16} className={className}>
+    <ImageList
+      variant="masonry"
+      cols={isMobile ? 1 : gridColumnSize}
+      gap={gapSize}
+      className={className}
+    >
       {giphyObjects.map((giphyObject, index) => {
         const key = `${index}-${giphyObject.id}`;
         const { url: giphyUrl, height, width } = giphyObject.images.fixed_width;
+        const isFavourite = favourites?.some(
+          (favourite) => favourite.id === giphyObject.id
+        );
+
+        const toggleFavourites = () => {
+          if (isFavourite) {
+            console.log('Is Favourite, remove');
+            dispatchRemoveFavourite(giphyObject.id);
+          } else {
+            console.log('It is not, add');
+            dispatchAddFavourite(giphyObject);
+          }
+        };
+
         return (
           <ImageListItem key={key}>
             <LazyLoadingImage
@@ -56,8 +89,8 @@ const GiphyList = ({ giphyObjects, className }: IGiphyListProps) => {
             <ImageListItemBar
               title={giphyObject.title}
               actionIcon={
-                <IconButton>
-                  <FavoriteBorderIcon />
+                <IconButton onClick={toggleFavourites}>
+                  {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
               }
             />

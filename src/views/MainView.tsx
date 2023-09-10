@@ -5,6 +5,7 @@ import { ViewContainer } from '../styled/ViewContainer';
 import { Route, Routes } from 'react-router-dom';
 import TrendingView from './TrendingView';
 import SearchView from './SearchView';
+import FavouriteView from './FavouritesView';
 
 const MainContainer = styled(ViewContainer)`
   display: flex;
@@ -21,6 +22,7 @@ const MainView = () => {
         <Routes>
           <Route path="/" element={<TrendingView />} />
           <Route path="/search" element={<SearchView />} />
+          <Route path="/favourites" element={<FavouriteView />} />
         </Routes>
       </MainContainer>
     </>
