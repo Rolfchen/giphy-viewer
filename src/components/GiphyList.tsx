@@ -66,10 +66,8 @@ const GiphyList = ({ giphyObjects, className }: IGiphyListProps) => {
 
         const toggleFavourites = () => {
           if (isFavourite) {
-            console.log('Is Favourite, remove');
             dispatchRemoveFavourite(giphyObject.id);
           } else {
-            console.log('It is not, add');
             dispatchAddFavourite(giphyObject);
           }
         };

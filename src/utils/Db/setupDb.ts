@@ -5,12 +5,6 @@ const setupDb = async () => {
   const dbStore = import.meta.env.VITE_DB_STORE_NAME;
   const dbVersion = parseInt(import.meta.env.VITE_DB_VERSION);
   if (!dbName || !dbStore || isNaN(dbVersion)) {
-    console.error('Which one is wrong?', {
-      dbName,
-      dbStore,
-      dbVersion,
-      raw: import.meta.env.VITE_DB_VERSION,
-    });
     throw new Error(
       'Missing important environment variables for DB name and DB store'
     );
