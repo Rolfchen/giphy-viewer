@@ -10,7 +10,7 @@ declare module '@emotion/react' {
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
   typography: {
     fontFamily: 'Poppins, Roboto, Arial, sans-serif',

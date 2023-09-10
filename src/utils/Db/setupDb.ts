@@ -1,15 +1,16 @@
 import { openDB } from 'idb';
+import getEnv from '../getEnv';
 
 const setupDb = async () => {
-  const dbName = import.meta.env.VITE_DB_NAME;
-  const dbStore = import.meta.env.VITE_DB_STORE_NAME;
-  const dbVersion = parseInt(import.meta.env.VITE_DB_VERSION);
-  if (!dbName || !dbStore || isNaN(dbVersion)) {
+  const dbName = getEnv('VITE_DB_NAME');
+  const dbStore = getEnv('VITE_DB_STORE_NAME');
+  const dbVersion = 1;
+  if (!dbName || !dbStore) {
     console.error('Which one is wrong?', {
       dbName,
       dbStore,
       dbVersion,
-      raw: import.meta.env.VITE_DB_VERSION,
+      raw: 1,
     });
     throw new Error(
       'Missing important environment variables for DB name and DB store'

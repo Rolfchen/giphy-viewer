@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
+import getEnv from '../utils/getEnv';
 import { IGiphyTrendingResponse } from '../types/giphyTypes';
 
 export interface IUseSearchGiphy {
@@ -12,14 +13,14 @@ export interface ISearchGiphyParams extends IUseSearchGiphy {
   };
 }
 
-const pageSize = parseInt(import.meta.env.VITE_GIPHY_PAGE_SIZE);
+const pageSize = parseInt(getEnv('VITE_GIPHY_PAGE_SIZE'));
 
 const searchGiphy = async ({ pageParam, searchTerm }: ISearchGiphyParams) => {
   const { offset = 0 } = pageParam || {};
-  const endpoint = `${import.meta.env.VITE_GIPHY_URL}/gifs/search`;
+  const endpoint = `${getEnv('VITE_GIPHY_URL')}/gifs/search`;
   const response = await axios.get<IGiphyTrendingResponse>(endpoint, {
     params: {
-      api_key: import.meta.env.VITE_GIPHY_API_KEY,
+      api_key: getEnv('VITE_GIPHY_API_KEY'),
       limit: pageSize,
       offset,
       q: searchTerm,

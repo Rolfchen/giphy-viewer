@@ -90,7 +90,11 @@ const GiphyList = ({ giphyObjects, className }: IGiphyListProps) => {
               title={giphyObject.title}
               actionIcon={
                 <IconButton onClick={toggleFavourites}>
-                  {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  {isFavourite ? (
+                    <FavoriteIcon sx={{ color: 'red' }} />
+                  ) : (
+                    <FavoriteBorderIcon sx={{ color: 'white' }} />
+                  )}
                 </IconButton>
               }
             />
