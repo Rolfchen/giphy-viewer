@@ -6,7 +6,7 @@ import useGiphyManager from '../contexts/GiphyManagerContext/useGiphyManager';
 
 const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.common.white};
   font-weight: 600;
 `;
 

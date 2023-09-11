@@ -1,4 +1,5 @@
 import { IGiphyGifObject } from '../../types/giphyTypes';
+import getEnv from '../getEnv';
 import setupDb from './setupDb';
 
 /**
@@ -6,7 +7,7 @@ import setupDb from './setupDb';
  * @param gifOBject
  */
 const addToFavourites = async (gifObject: IGiphyGifObject) => {
-  const dbStore = import.meta.env.VITE_DB_STORE_NAME;
+  const dbStore = getEnv('VITE_DB_STORE_NAME');
   const db = await setupDb();
   const transaction = db.transaction(dbStore, 'readwrite');
   transaction.store.add(gifObject);

@@ -1,4 +1,5 @@
 import { IGiphyGifObject } from '../../types/giphyTypes';
+import getEnv from '../getEnv';
 import setupDb from './setupDb';
 
 /**
@@ -7,7 +8,7 @@ import setupDb from './setupDb';
  */
 const getFavourites = async (): Promise<IGiphyGifObject[]> => {
   const db = await setupDb();
-  const dbStore = import.meta.env.VITE_DB_STORE_NAME;
+  const dbStore = getEnv('VITE_DB_STORE_NAME');
   return db.getAll(dbStore);
 };
 
