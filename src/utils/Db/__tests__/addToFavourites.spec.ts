@@ -5,21 +5,9 @@ import { IGiphyGifObject } from '../../../types/giphyTypes';
 import { generateMockGifObject } from '../../../__mocks__/generateMockGifObject';
 
 // Mock the setupDb module
-jest.mock('../setupDb');
+jest.mock('../setupDb', () => jest.fn());
 
-jest.mock('../../getEnv', () => ({
-  default: jest.fn().mockReturnValue('mockedValue'),
-}));
-
-// Mock import.meta.env variables
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// (global as any).import = {
-//   meta: {
-//     env: {
-//       VITE_DB_STORE_NAME: 'mockedDbStoreName',
-//     },
-//   },
-// };
+jest.mock('../../getEnv', () => jest.fn());
 
 describe('addToFavourites', () => {
   it('should invoke index DB transaction to add favourite item to the store.', async () => {
@@ -28,6 +16,7 @@ describe('addToFavourites', () => {
     const mockGifObject: IGiphyGifObject = generateMockGifObject({
       id: mockGifObjectId,
     });
+    (getEnv as jest.Mock).mockImplementation(() => 'mockedDbStoreName');
 
     // Mock IndexedDB functions
     const mockTransaction = {

@@ -12,5 +12,4 @@ export default {
       },
     ],
   },
-  setupFiles: ['<rootDir>/jestGlobalSetup.ts'],
 };
