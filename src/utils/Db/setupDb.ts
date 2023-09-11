@@ -12,6 +12,7 @@ const setupDb = async () => {
       dbVersion,
       raw: 1,
     });
+
     throw new Error(
       'Missing important environment variables for DB name and DB store'
     );
